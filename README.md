@@ -42,10 +42,15 @@ streamlit run app.py
 ```
 Tarayıcınızda açılan arayüzde, YouTube Video Bağlantısını girin ve "Notları Al" butonuna tıklayın.
 Sistem, videodan transkripti alır ve sınav çalışmaları için odaklı bir özet oluşturur.
+## Uyarılar
 
-!!! prompt değiştirilerek istenilen şekilde özet oluşturulabilir
-!!! özetleme mekanizması yazılan kod gereği Türkçe altyazı içeren videolar için geçerlidir
-aşağıdaki kod satırında 'tr' bölümünü istediğiniz dil ile değiştirebilirsiniz
+⚠️ **Prompt Özelleştirilebilir:**  
+Prompt, ihtiyaçlarınıza uygun şekilde değiştirilerek farklı türde özetler oluşturulabilir.
+
+⚠️ **Türkçe Altyazı Gerekliliği:**  
+Bu uygulama, sadece Türkçe altyazı içeren YouTube videoları için çalışmaktadır. Altyazı desteği olmayan videolarda özetleme yapılamaz.
+
+aşağıdaki kod satırında 'tr' bölümünü istediğiniz dil ile değiştirerek istediğini video için özet oluşturabilirsiniz
  ```bash
-transcript_text = YouTubeTranscriptApi.get_transcript(video_id, languages=['tr'])
+transcript_text = YouTubeTranscriptApi.get_transcript(video_id, languages=['video_diliniz'])
 ```
