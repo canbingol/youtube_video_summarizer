@@ -16,9 +16,7 @@ Bu projeyi çalıştırmak için aşağıdaki gereksinimlere ihtiyacınız var:
 
 1. **Projeyi klonlayın:**
    ```bash
-   git clone https://github.com/kullanıcı_adı/proje_adı.git
-   cd proje_adı
-
+   git clone https://github.com/canbingol/youtube_video_summarizer
 2.Gerekli bağımlılıkları yükleyin: Sanal bir ortam oluşturup bağımlılıkları yüklemek için:
  ```bash
   python -m venv venv
