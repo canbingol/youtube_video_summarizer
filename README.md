@@ -24,7 +24,7 @@ Bu projeyi çalıştırmak için aşağıdaki gereksinimlere ihtiyacınız var:
   pip install -r requirements.txt
 ```
 3. Google AI Studio API Key'i oluşturun:
-- (google ai studio)[https://aistudio.google.com/app/apikey] adresine gidin
+- [Google AI Studio](https://aistudio.google.com/app/apikey) adresine gidin
 - API erişimi için bir API Key oluşturun.
 
   4. .env dosyasını oluşturun ve API anahtarını ekleyin: Proje dizininde bir .env dosyası oluşturun:
