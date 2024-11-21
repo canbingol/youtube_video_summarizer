@@ -15,11 +15,11 @@ Bu projeyi çalıştırmak için aşağıdaki gereksinimlere ihtiyacınız var:
 ## Kurulum
 
 1. **Projeyi klonlayın:**
-   ```bash
+    ```bash
    git clone https://github.com/canbingol/youtube_video_summarizer
 2.Gerekli bağımlılıkları yükleyin: Sanal bir ortam oluşturup bağımlılıkları yüklemek için:
- ```bash
-  python -m venv venv
+```bash
+   python -m venv venv
   source venv/bin/activate  # Windows kullanıyorsanız: venv\Scripts\activate
   pip install -r requirements.txt
 ```
@@ -27,7 +27,7 @@ Bu projeyi çalıştırmak için aşağıdaki gereksinimlere ihtiyacınız var:
 - [Google AI Studio](https://aistudio.google.com/app/apikey) adresine gidin
 - API erişimi için bir API Key oluşturun.
 
-  4. .env dosyasını oluşturun ve API anahtarını ekleyin: Proje dizininde bir .env dosyası oluşturun:
+4. .env dosyasını oluşturun ve API anahtarını ekleyin: Proje dizininde bir .env dosyası oluşturun:
   -Dosyanın içine şu satırı ekleyin:
  ```bash
 GOOGLE_API_KEY="BURAYA_API_KEYİNİZİ_YAZIN"
