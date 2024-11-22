@@ -1,54 +1,56 @@
-# YouTube Videosundan Sınav Notları Oluşturucu
+# Study Notes Generator from YouTube Videos
+This project creates concise and focused summaries highlighting important points for university students' exam preparation by extracting text transcripts from YouTube videos. It helps identify key information that might appear in exams.
 
-Bu proje, bir YouTube videosunun metin transkriptini alarak üniversite öğrencilerinin sınav çalışmaları için önemli noktaları vurgulayan kısa ve odaklı özetler oluşturur. Özellikle sınavlarda çıkabilecek anahtar bilgilerin belirlenmesine yardımcı olur. 
+## Features
+- Automatic transcript extraction from YouTube videos (English supported)
+- Summarizes important points for exam study within 250 words
+- Easy and user-friendly interface
 
-## Özellikler
-- YouTube videosundan otomatik transkript alma (Türkçe destekli).
-- Öğrencilerin sınav çalışmaları için önemli noktaları 250 kelime içinde özetleme.
-- Kolay ve kullanıcı dostu bir arayüz.
+## Requirements
+You need the following requirements to run this project:
+- **Python 3.8 or higher**
+- Required libraries (installation instructions provided below)
 
-## Gereksinimler
-Bu projeyi çalıştırmak için aşağıdaki gereksinimlere ihtiyacınız var:
-- **Python 3.8 veya üzeri**
-- Gerekli kütüphaneler (kurulum talimatları aşağıda verilmiştir).
-
-## Kurulum
-
-1. **Projeyi klonlayın:**
+## Installation
+1. **Clone the project:**
     ```bash
-   git clone https://github.com/canbingol/youtube_video_summarizer
-2.Gerekli bağımlılıkları yükleyin: Sanal bir ortam oluşturup bağımlılıkları yüklemek için:
+    git clone https://github.com/canbingol/youtube_video_summarizer
+    ```
+
+2. Install required dependencies: Create a virtual environment and install dependencies:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # For Windows: venv\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+3. Create Google AI Studio API Key:
+    - Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+    - Create an API Key for API access
+
+4. Create .env file and add API key:
+    - Create a .env file in the project directory
+    - Add this line to the file:
+    ```bash
+    GOOGLE_API_KEY="ENTER_YOUR_API_KEY_HERE"
+    ```
+
+## Usage
+To start the project, run the following command:
 ```bash
-   python -m venv venv
-  source venv/bin/activate  # Windows kullanıyorsanız: venv\Scripts\activate
-  pip install -r requirements.txt
-```
-3. Google AI Studio API Key'i oluşturun:
-- [Google AI Studio](https://aistudio.google.com/app/apikey) adresine gidin
-- API erişimi için bir API Key oluşturun.
-
-4. .env dosyasını oluşturun ve API anahtarını ekleyin: Proje dizininde bir .env dosyası oluşturun:
-  -Dosyanın içine şu satırı ekleyin:
- ```bash
-GOOGLE_API_KEY="BURAYA_API_KEYİNİZİ_YAZIN"
-```
-
-Kullanım
-Projeyi başlatmak için aşağıdaki komutu çalıştırın:
- ```bash
 streamlit run app.py
 ```
-Tarayıcınızda açılan arayüzde, YouTube Video Bağlantısını girin ve "Notları Al" butonuna tıklayın.
-Sistem, videodan transkripti alır ve sınav çalışmaları için odaklı bir özet oluşturur.
-## Uyarılar
+In the interface that opens in your browser, enter the YouTube Video Link and click the "Get Notes" button.
+The system will extract the transcript from the video and create a focused summary for exam study.
 
-⚠️ **Prompt Özelleştirilebilir:**  
-Prompt, ihtiyaçlarınıza uygun şekilde değiştirilerek farklı türde özetler oluşturulabilir.
+## Warnings
+⚠️ **Customizable Prompt:**  
+The prompt can be modified to create different types of summaries according to your needs.
 
-⚠️ **Türkçe Altyazı Gerekliliği:**  
-Bu uygulama, sadece Türkçe altyazı içeren YouTube videoları için çalışmaktadır. Altyazı desteği olmayan videolarda özetleme yapılamaz.
+⚠️ **Language Subtitle Requirement:**  
+This application works only for YouTube videos with subtitles in your selected language. Summarization cannot be done for videos without subtitle support.
 
-aşağıdaki kod satırında 'tr' bölümünü istediğiniz dil ile değiştirerek istediğini video için özet oluşturabilirsiniz
- ```bash
-transcript_text = YouTubeTranscriptApi.get_transcript(video_id, languages=['video_diliniz'])
+You can create summaries for videos in any language by changing the 'tr' part in the following code line to your desired language:
+```bash
+transcript_text = YouTubeTranscriptApi.get_transcript(video_id, languages=['your_video_language'])
 ```
