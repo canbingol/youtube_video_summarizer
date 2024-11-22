@@ -12,7 +12,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 prompt = """ Sen bir YouTube video özetleyicisisin.
 Görevin, üniversite öğrencilerinin sınav çalışmalarına yardımcı olmak için bir videonun metin transkriptini alıp en önemli bilgileri özetlemektir.
-Bu özeti 250 kelimeyi geçmeyecek şekilde, sınavda çıkabilecek önemli maddeleri vurgulayarak hazırla. Açık, anlaşılır ve konuyu kavramaya yardımcı olacak şekilde yaz!"""
+Bu özeti  400 kelimeyi geçmeyecek şekilde, sınavda çıkabilecek önemli maddeleri vurgulayarak hazırla. Açık, anlaşılır ve konuyu kavramaya yardımcı olacak şekilde yaz!"""
 
 def extract_transcript_details(youtube_video_url):
     try:
@@ -37,19 +37,24 @@ def generate_gemini_content(transcript_text, prompt):
     response = model.generate_content(prompt + transcript_text)
     return response.text
 
-def create_pdf(summary):
+def create_pdf(summary_text):
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, summary)
+    
+    font_path = os.path.join(os.path.dirname(__file__), "fonts", "FreeSerif.ttf")
+    pdf.add_font("FreeSerif", '', font_path, uni=True)
+    pdf.set_font("FreeSerif", size=12)
+    
+    pdf.multi_cell(0, 10, txt=summary_text)
+    
     pdf_file = "summary.pdf"
     pdf.output(pdf_file)
     return pdf_file
 
-def create_txt(summary):
+def create_txt(summary_text):
     txt_file = "summary.txt"
-    with open(txt_file, "w", encoding="utf-8") as file:
-        file.write(summary)
+    with open(txt_file, "w", encoding="utf-8") as f:
+        f.write(summary_text)
     return txt_file
 
 st.title("YouTube Videosundan Sınav Notları Oluşturucu")
