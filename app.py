@@ -1,7 +1,6 @@
 import streamlit as st
 from dotenv import load_dotenv
 import os
-
 load_dotenv()
 import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -10,9 +9,9 @@ from fpdf import FPDF
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-prompt = """ Sen bir YouTube video özetleyicisisin.
-Görevin, üniversite öğrencilerinin sınav çalışmalarına yardımcı olmak için bir videonun metin transkriptini alıp en önemli bilgileri özetlemektir.
-Bu özeti  400 kelimeyi geçmeyecek şekilde, sınavda çıkabilecek önemli maddeleri vurgulayarak hazırla. Açık, anlaşılır ve konuyu kavramaya yardımcı olacak şekilde yaz!"""
+prompt = """ You are a YouTube video summarizer.
+Your task is to help university students study for exams by taking a video's text transcript and summarizing the most important information.
+Prepare this summary in no more than 400 words, highlighting important points that might appear in the exam. Write it in a clear, understandable way that helps grasp the subject!"""
 
 def extract_transcript_details(youtube_video_url):
     try:
@@ -23,14 +22,14 @@ def extract_transcript_details(youtube_video_url):
         for i in transcript_text:
             transcript += " " + i["text"]
         
-        return transcript   
-             
+        return transcript
+        
     except TranscriptsDisabled:
-        return "Bu video için transkript alınamıyor. Videonun altyazıları devre dışı bırakılmış olabilir."
+        return "Cannot get transcript for this video. Subtitles might be disabled."
     except NoTranscriptFound:
-        return "Bu video için seçilen dilde transkript bulunamadı. Alternatif bir video deneyebilirsiniz."
+        return "No transcript found in the selected language for this video. You might try an alternative video."
     except Exception as e:
-        return f"Beklenmeyen bir hata oluştu: {str(e)}"
+        return f"An unexpected error occurred: {str(e)}"
 
 def generate_gemini_content(transcript_text, prompt):
     model = genai.GenerativeModel('gemini-pro')
@@ -57,29 +56,29 @@ def create_txt(summary_text):
         f.write(summary_text)
     return txt_file
 
-st.title("YouTube Videosundan Sınav Notları Oluşturucu")
+st.title("Study Notes Generator from YouTube Video")
 
-youtube_link = st.text_input("YouTube Video Bağlantısını Girin:")
+youtube_link = st.text_input("Enter YouTube Video Link:")
 
 if youtube_link:
     video_id = youtube_link.split("=")[1]
     st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", width=300, use_column_width=False)
 
-if st.button("Notları Al"):
+if st.button("Get Notes"):
     transcript_text = extract_transcript_details(youtube_link)
     
-    if "Bu video için" in transcript_text or "Beklenmeyen bir hata" in transcript_text:
+    if "Cannot get transcript" in transcript_text or "An unexpected error" in transcript_text:
         st.error(transcript_text)
     else:
         summary = generate_gemini_content(transcript_text, prompt)
-        st.markdown('## Detaylı Notlar:')
+        st.markdown('## Detailed Notes:')
         st.write(summary)
         
         pdf_path = create_pdf(summary)
         txt_path = create_txt(summary)
         
         with open(pdf_path, "rb") as pdf_file:
-            st.download_button("PDF Olarak İndir", data=pdf_file, file_name="summary.pdf", mime="application/pdf")
+            st.download_button("Download as PDF", data=pdf_file, file_name="summary.pdf", mime="application/pdf")
         
         with open(txt_path, "r", encoding="utf-8") as txt_file:
-            st.download_button("TXT Olarak İndir", data=txt_file, file_name="summary.txt", mime="text/plain")
+            st.download_button("Download as TXT", data=txt_file, file_name="summary.txt", mime="text/plain")
